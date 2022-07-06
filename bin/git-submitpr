@@ -96,12 +96,7 @@ if git -C "$worktree_dir" remote get-url mine 2>/dev/null && git -C "$worktree_d
     git -C "$worktree_dir" open --remote mine "pull/new/$branch_name"
   fi
 elif git -C "$worktree_dir" push --quiet --set-upstream origin "$branch_name" 2> "$error_file"; then
-  if command -v ghb > /dev/null; then
-    # TODO maybe ghb should support -C ?
-    pushd "$worktree_dir" >/dev/null
-    ghb pr --no-edit "$remote_branch_name" "$@"
-    popd >/dev/null
-  elif command -v gh > /dev/null; then
+  if command -v gh > /dev/null; then
     # TODO: does gh not support -C either?
     pushd "$worktree_dir" >/dev/null
     body_args=(--fill)
